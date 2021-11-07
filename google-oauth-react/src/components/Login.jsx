@@ -1,8 +1,9 @@
 import React from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { googleLogin } from '../api/googleLogin'
+import { logout } from '../helper/auth'
 
 export default function Login() {
   const loginResponseSuccess = response => {
@@ -16,13 +17,9 @@ export default function Login() {
     console.log(response)
   }
   const logoutResponseSuccess = response => {
-    console.log('Login Success')
-    console.log(response)
+    logout()
   }
-  const logoutResponseFailure = response => {
-    console.log('Login Failed')
-    console.log(response)
-  }
+
   return (
     <div className="login-card">
       <h2>Google Login</h2>
@@ -34,8 +31,7 @@ export default function Login() {
       />
       <GoogleLogout
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-        onSuccess={logoutResponseSuccess}
-        onFailure={logoutResponseFailure}
+        onLogoutSuccess={logoutResponseSuccess}
         cookiePolicy={'single_host_origin'}
       />
       <ToastContainer />
