@@ -7,6 +7,12 @@ export const googleLogin = token => {
     .post(process.env.REACT_APP_BACKEND_URL + '/auth/google/google-login', data)
     .then(response => {
       toast.success('Successful Login yay 😄')
+      const {
+        data: { token },
+      } = response
+
+      // Add token to the localStorage
+      login(token)
     })
     .catch(error => {
       toast.error('Unsuccessful Login sorry 😢')
